@@ -1,5 +1,5 @@
 # ONLINE EXAMINATION SYSTEM
-### DBMS Mini Project — Aditya Santosh CSE-C
+### DBMS Mini Project — II-I CSE-C
 
 A complete, ready-to-submit MySQL project: problem statement, ER diagram
 specification, tables with constraints, 20+ records per table, SQL queries,
