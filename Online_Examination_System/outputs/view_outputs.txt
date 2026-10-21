@@ -1,0 +1,65 @@
+VIEW QUERY 1: SELECT * FROM V_STUDENT_REPORT ORDER BY Course_Name, Marks_Obtained DESC;
+OUTPUT:
+Student_ID | Student_Name     | Department | Course_Name                  | Exam_Title                  | Exam_Date  | Marks_Obtained | Percentage | Grade | Status
+-----------+------------------+------------+------------------------------+-----------------------------+------------+----------------+------------+-------+-------
+1011       | ADITYA GUPTA     | CSE        | COMPUTER NETWORKS            | COMPUTER NETWORKS UNIT TEST | 2026-08-28 | 100            | 100        | A     | PASS  
+1009       | VIKRAM SINGH     | CSE        | COMPUTER NETWORKS            | COMPUTER NETWORKS UNIT TEST | 2026-08-28 | 75             | 75         | B     | PASS  
+1010       | MEERA JOSHI      | CSE        | COMPUTER NETWORKS            | COMPUTER NETWORKS UNIT TEST | 2026-08-28 | 50             | 50         | D     | PASS  
+1012       | POOJA KULKARNI   | CSE        | COMPUTER NETWORKS            | COMPUTER NETWORKS UNIT TEST | 2026-08-28 | 0              | 0          | F     | FAIL  
+1013       | SANDEEP KUMAR    | CSE        | DATA STRUCTURES & ALGORITHMS | DSA MIDTERM - I             | 2026-09-04 | 100            | 100        | A     | PASS  
+1014       | NISHA RAO        | CSE        | DATA STRUCTURES & ALGORITHMS | DSA MIDTERM - I             | 2026-09-04 | 75             | 75         | B     | PASS  
+1015       | ARUN PILLAI      | CSE        | DATA STRUCTURES & ALGORITHMS | DSA MIDTERM - I             | 2026-09-04 | 75             | 75         | B     | PASS  
+1016       | RIYA BANERJEE    | CSE        | DATA STRUCTURES & ALGORITHMS | DSA MIDTERM - I             | 2026-09-04 | 50             | 50         | D     | PASS  
+1001       | AARAV SHARMA     | CSE        | DATABASE MANAGEMENT SYSTEMS  | DBMS MIDTERM - I            | 2026-08-14 | 100            | 100        | A     | PASS  
+1002       | PRIYA IYER       | CSE        | DATABASE MANAGEMENT SYSTEMS  | DBMS MIDTERM - I            | 2026-08-14 | 75             | 75         | B     | PASS  
+1003       | ROHAN MEHTA      | CSE        | DATABASE MANAGEMENT SYSTEMS  | DBMS MIDTERM - I            | 2026-08-14 | 50             | 50         | D     | PASS  
+1004       | ANANYA DAS       | CSE        | DATABASE MANAGEMENT SYSTEMS  | DBMS MIDTERM - I            | 2026-08-14 | 25             | 25         | F     | FAIL  
+1001       | AARAV SHARMA     | CSE        | DISCRETE MATHEMATICS         | DISCRETE MATHS QUIZ - 1     | 2026-09-18 | 100            | 100        | A     | PASS  
+1021       | HARSHA VARDHAN   | CSE        | DISCRETE MATHEMATICS         | DISCRETE MATHS QUIZ - 1     | 2026-09-18 | 75             | 75         | B     | PASS  
+1005       | KARTHIK REDDY    | CSE        | DISCRETE MATHEMATICS         | DISCRETE MATHS QUIZ - 1     | 2026-09-18 | 75             | 75         | B     | PASS  
+1022       | TANVI DESHPANDE  | CSE        | DISCRETE MATHEMATICS         | DISCRETE MATHS QUIZ - 1     | 2026-09-18 | 50             | 50         | D     | PASS  
+1018       | KAVYA SHETTY     | IT         | JAVA PROGRAMMING             | JAVA PROGRAMMING TEST       | 2026-09-11 | 100            | 100        | A     | PASS  
+1019       | SIDDHARTH JAIN   | CSE        | JAVA PROGRAMMING             | JAVA PROGRAMMING TEST       | 2026-09-11 | 75             | 75         | B     | PASS  
+1017       | MANISH VERMA     | CSE        | JAVA PROGRAMMING             | JAVA PROGRAMMING TEST       | 2026-09-11 | 50             | 50         | D     | PASS  
+1020       | ANJALI CHOUDHARY | IT         | JAVA PROGRAMMING             | JAVA PROGRAMMING TEST       | 2026-09-11 | 25             | 25         | F     | FAIL  
+1005       | KARTHIK REDDY    | CSE        | OPERATING SYSTEMS            | OS QUIZ - 2                 | 2026-08-21 | 100            | 100        | A     | PASS  
+1008       | DIVYA MENON      | CSE        | OPERATING SYSTEMS            | OS QUIZ - 2                 | 2026-08-21 | 100            | 100        | A     | PASS  
+1006       | SNEHA PATIL      | CSE        | OPERATING SYSTEMS            | OS QUIZ - 2                 | 2026-08-21 | 75             | 75         | B     | PASS  
+1007       | ARJUN NAIR       | CSE        | OPERATING SYSTEMS            | OS QUIZ - 2                 | 2026-08-21 | 50             | 50         | D     | PASS  
+(24 rows)
+
+VIEW QUERY 2: SELECT * FROM V_COURSE_ANALYTICS ORDER BY AVERAGE_MARKS DESC;
+OUTPUT:
+Course_ID | Course_Name                  | Instructor_Name      | TOTAL_ATTEMPTS | AVERAGE_MARKS | PASSED | FAILED
+----------+------------------------------+----------------------+----------------+---------------+--------+-------
+11        | OPERATING SYSTEMS            | DR. MEENAKSHI NAIR   | 4              | 81.25         | 4      | 0     
+13        | DATA STRUCTURES & ALGORITHMS | DR. ANIL KAPOOR      | 4              | 75.0          | 4      | 0     
+15        | DISCRETE MATHEMATICS         | DR. LAKSHMI PRIYA    | 4              | 75.0          | 4      | 0     
+10        | DATABASE MANAGEMENT SYSTEMS  | DR. S. RAMKUMAR      | 4              | 62.5          | 3      | 1     
+14        | JAVA PROGRAMMING             | DR. S. RAMKUMAR      | 4              | 62.5          | 3      | 1     
+12        | COMPUTER NETWORKS            | PROF. R. THOMAS      | 4              | 56.25         | 3      | 1     
+16        | SOFTWARE ENGINEERING         | PROF. VIJAY KULKARNI | 0              | NULL          | 0      | 0     
+17        | THEORY OF COMPUTATION        | DR. ANIL KAPOOR      | 0              | NULL          | 0      | 0     
+18        | WEB TECHNOLOGIES             | PROF. VIJAY KULKARNI | 0              | NULL          | 0      | 0     
+19        | NUMERICAL METHODS            | DR. LAKSHMI PRIYA    | 0              | NULL          | 0      | 0     
+(10 rows)
+
+VIEW QUERY 3: SELECT * FROM V_UPCOMING_EXAMS ORDER BY Exam_Date;
+OUTPUT:
+Exam_ID | Exam_Title                     | Course_Name                  | Instructor_Name      | Exam_Date  | Duration_Minutes | Total_Marks | Exam_Type
+--------+--------------------------------+------------------------------+----------------------+------------+------------------+-------------+----------
+207     | DBMS MIDTERM - II              | DATABASE MANAGEMENT SYSTEMS  | DR. S. RAMKUMAR      | 2026-10-25 | 180              | 100         | MIDTERM  
+208     | OS MIDTERM - I                 | OPERATING SYSTEMS            | DR. MEENAKSHI NAIR   | 2026-10-27 | 180              | 100         | MIDTERM  
+209     | COMPUTER NETWORKS QUIZ - 2     | COMPUTER NETWORKS            | PROF. R. THOMAS      | 2026-10-30 | 45               | 100         | QUIZ     
+210     | DSA MIDTERM - II               | DATA STRUCTURES & ALGORITHMS | DR. ANIL KAPOOR      | 2026-11-03 | 180              | 100         | MIDTERM  
+211     | JAVA PROGRAMMING MIDTERM - I   | JAVA PROGRAMMING             | DR. S. RAMKUMAR      | 2026-11-06 | 180              | 100         | MIDTERM  
+212     | DISCRETE MATHS MIDTERM         | DISCRETE MATHEMATICS         | DR. LAKSHMI PRIYA    | 2026-11-09 | 180              | 100         | MIDTERM  
+213     | SOFTWARE ENGINEERING UNIT TEST | SOFTWARE ENGINEERING         | PROF. VIJAY KULKARNI | 2026-11-12 | 60               | 100         | UNIT TEST
+214     | THEORY OF COMPUTATION QUIZ - 1 | THEORY OF COMPUTATION        | DR. ANIL KAPOOR      | 2026-11-16 | 45               | 100         | QUIZ     
+215     | WEB TECHNOLOGIES UNIT TEST     | WEB TECHNOLOGIES             | PROF. VIJAY KULKARNI | 2026-11-19 | 60               | 100         | UNIT TEST
+216     | NUMERICAL METHODS QUIZ - 1     | NUMERICAL METHODS            | DR. LAKSHMI PRIYA    | 2026-11-23 | 45               | 100         | QUIZ     
+217     | DBMS FINAL EXAM                | DATABASE MANAGEMENT SYSTEMS  | DR. S. RAMKUMAR      | 2026-11-27 | 180              | 100         | FINAL    
+218     | OPERATING SYSTEMS FINAL EXAM   | OPERATING SYSTEMS            | DR. MEENAKSHI NAIR   | 2026-12-01 | 180              | 100         | FINAL    
+219     | DSA FINAL EXAM                 | DATA STRUCTURES & ALGORITHMS | DR. ANIL KAPOOR      | 2026-12-04 | 180              | 100         | FINAL    
+220     | COMPUTER NETWORKS FINAL EXAM   | COMPUTER NETWORKS            | PROF. R. THOMAS      | 2026-12-08 | 180              | 100         | FINAL    
+(14 rows)

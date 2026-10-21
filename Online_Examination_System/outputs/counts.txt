@@ -1,0 +1,13 @@
+TABLE_NAME      | RECORDS
+----------------+--------
+STUDENT         | 23     
+INSTRUCTOR      | 6      
+COURSE          | 10     
+ENROLLMENT      | 37     
+EXAM            | 20     
+QUESTION        | 24     
+QUESTION_OPTION | 96     
+EXAM_ATTEMPT    | 24     
+ANSWER          | 96     
+RESULT          | 24     
+(10 rows)

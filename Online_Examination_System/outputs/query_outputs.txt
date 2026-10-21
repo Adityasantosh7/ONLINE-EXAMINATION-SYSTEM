@@ -1,0 +1,378 @@
+
+==============================================================================Q1. SIMPLE SELECT + column list + aliases
+
+SQL:
+SELECT Student_ID   AS ROLL_NO,
+       Student_Name AS STUDENT_NAME,
+       Email        AS EMAIL_ID
+FROM STUDENT;
+OUTPUT:
+ROLL_NO | STUDENT_NAME     | EMAIL_ID                            
+--------+------------------+-------------------------------------
+1001    | AARAV SHARMA     | aarav.sharma@student.college.edu    
+1002    | PRIYA IYER       | priya.iyer@student.college.edu      
+1003    | ROHAN MEHTA      | rohan.mehta@student.college.edu     
+1004    | ANANYA DAS       | ananya.das@student.college.edu      
+1005    | KARTHIK REDDY    | karthik.reddy@student.college.edu   
+1006    | SNEHA PATIL      | sneha.patil@student.college.edu     
+1007    | ARJUN NAIR       | arjun.nair@student.college.edu      
+1008    | DIVYA MENON      | divya.menon@student.college.edu     
+1009    | VIKRAM SINGH     | vikram.singh@student.college.edu    
+1010    | MEERA JOSHI      | meera.joshi@student.college.edu     
+1011    | ADITYA GUPTA     | aditya.gupta@student.college.edu    
+1012    | POOJA KULKARNI   | pooja.kulkarni@student.college.edu  
+1013    | SANDEEP KUMAR    | sandeep.kumar@student.college.edu   
+1014    | NISHA RAO        | nisha.rao@student.college.edu       
+1015    | ARUN PILLAI      | arun.pillai@student.college.edu     
+1016    | RIYA BANERJEE    | riya.banerjee@student.college.edu   
+1017    | MANISH VERMA     | manish.verma@student.college.edu    
+1018    | KAVYA SHETTY     | kavya.shetty@student.college.edu    
+1019    | SIDDHARTH JAIN   | siddharth.jain@student.college.edu  
+1020    | ANJALI CHOUDHARY | anjali.choudhary@student.college.edu
+1021    | HARSHA VARDHAN   | harsha.vardhan@student.college.edu  
+1022    | TANVI DESHPANDE  | tanvi.deshpande@student.college.edu 
+1023    | GOUTHAM REDDY    | goutham.reddy@student.college.edu   
+(23 rows)
+
+Q2. WHERE condition with AND / comparison operators
+
+SQL:
+SELECT Student_ID, Student_Name, Department
+FROM STUDENT
+WHERE Department = 'CSE' AND Student_ID >= 1019
+ORDER BY Student_ID;
+OUTPUT:
+Student_ID | Student_Name    | Department
+-----------+-----------------+-----------
+1019       | SIDDHARTH JAIN  | CSE       
+1021       | HARSHA VARDHAN  | CSE       
+1022       | TANVI DESHPANDE | CSE       
+(3 rows)
+
+Q3. WHERE condition + ORDER BY (descending)
+
+SQL:
+SELECT Exam_Title, Exam_Date, Exam_Type
+FROM EXAM
+WHERE Exam_Type = 'FINAL'
+ORDER BY Exam_Date DESC;
+OUTPUT:
+Exam_Title                   | Exam_Date  | Exam_Type
+-----------------------------+------------+----------
+COMPUTER NETWORKS FINAL EXAM | 2026-12-08 | FINAL    
+DSA FINAL EXAM               | 2026-12-04 | FINAL    
+OPERATING SYSTEMS FINAL EXAM | 2026-12-01 | FINAL    
+DBMS FINAL EXAM              | 2026-11-27 | FINAL    
+(4 rows)
+
+Q4. AGGREGATE FUNCTIONS (COUNT, AVG, MAX, MIN, SUM) without GROUP BY
+
+SQL:
+SELECT COUNT(*)                 AS TOTAL_ATTEMPTS,
+       ROUND(AVG(Marks_Obtained), 2) AS AVG_MARKS,
+       MAX(Marks_Obtained)      AS HIGHEST,
+       MIN(Marks_Obtained)      AS LOWEST,
+       SUM(Marks_Obtained)      AS TOTAL_MARKS_SCORED
+FROM EXAM_ATTEMPT;
+OUTPUT:
+TOTAL_ATTEMPTS | AVG_MARKS | HIGHEST | LOWEST | TOTAL_MARKS_SCORED
+---------------+-----------+---------+--------+-------------------
+24             | 68.75     | 100     | 0      | 1650              
+(1 row)
+
+Q5. GROUP BY + aggregate functions
+
+SQL:
+SELECT Exam_ID,
+       COUNT(*)                 AS STUDENTS_APPEARED,
+       ROUND(AVG(Marks_Obtained), 2) AS AVG_MARKS,
+       MAX(Marks_Obtained)      AS MAX_MARKS,
+       MIN(Marks_Obtained)      AS MIN_MARKS
+FROM EXAM_ATTEMPT
+GROUP BY Exam_ID
+ORDER BY Exam_ID;
+OUTPUT:
+Exam_ID | STUDENTS_APPEARED | AVG_MARKS | MAX_MARKS | MIN_MARKS
+--------+-------------------+-----------+-----------+----------
+201     | 4                 | 62.5      | 100       | 25       
+202     | 4                 | 81.25     | 100       | 50       
+203     | 4                 | 56.25     | 100       | 0        
+204     | 4                 | 75.0      | 100       | 50       
+205     | 4                 | 62.5      | 100       | 25       
+206     | 4                 | 75.0      | 100       | 50       
+(6 rows)
+
+Q6. GROUP BY + HAVING (filter on the GROUP, not on rows)
+
+SQL:
+SELECT Exam_ID,
+       COUNT(*)                 AS STUDENTS_APPEARED,
+       ROUND(AVG(Marks_Obtained), 2) AS AVG_MARKS
+FROM EXAM_ATTEMPT
+GROUP BY Exam_ID
+HAVING AVG(Marks_Obtained) > 60
+ORDER BY AVG_MARKS DESC;
+OUTPUT:
+Exam_ID | STUDENTS_APPEARED | AVG_MARKS
+--------+-------------------+----------
+202     | 4                 | 81.25    
+206     | 4                 | 75.0     
+204     | 4                 | 75.0     
+205     | 4                 | 62.5     
+201     | 4                 | 62.5     
+(5 rows)
+
+Q7. GROUP BY + HAVING on a JOIN
+
+SQL:
+SELECT c.Course_Name,
+       COUNT(*) AS ENROLLED_STUDENTS
+FROM COURSE c
+JOIN ENROLLMENT e ON e.Course_ID = c.Course_ID
+GROUP BY c.Course_Name
+HAVING COUNT(*) >= 4
+ORDER BY ENROLLED_STUDENTS DESC;
+OUTPUT:
+Course_Name                  | ENROLLED_STUDENTS
+-----------------------------+------------------
+DATA STRUCTURES & ALGORITHMS | 7                
+OPERATING SYSTEMS            | 6                
+JAVA PROGRAMMING             | 6                
+COMPUTER NETWORKS            | 6                
+DISCRETE MATHEMATICS         | 5                
+DATABASE MANAGEMENT SYSTEMS  | 5                
+(6 rows)
+
+Q8. INNER JOIN (3 tables) - STUDENT + EXAM_ATTEMPT + EXAM
+
+SQL:
+SELECT a.Attempt_ID,
+       s.Student_ID,
+       s.Student_Name,
+       x.Exam_Title,
+       a.Marks_Obtained
+FROM EXAM_ATTEMPT a
+JOIN STUDENT s ON s.Student_ID = a.Student_ID
+JOIN EXAM x    ON x.Exam_ID    = a.Exam_ID
+ORDER BY x.Exam_ID, a.Marks_Obtained DESC;
+OUTPUT:
+Attempt_ID | Student_ID | Student_Name     | Exam_Title                  | Marks_Obtained
+-----------+------------+------------------+-----------------------------+---------------
+9001       | 1001       | AARAV SHARMA     | DBMS MIDTERM - I            | 100           
+9002       | 1002       | PRIYA IYER       | DBMS MIDTERM - I            | 75            
+9003       | 1003       | ROHAN MEHTA      | DBMS MIDTERM - I            | 50            
+9004       | 1004       | ANANYA DAS       | DBMS MIDTERM - I            | 25            
+9005       | 1005       | KARTHIK REDDY    | OS QUIZ - 2                 | 100           
+9008       | 1008       | DIVYA MENON      | OS QUIZ - 2                 | 100           
+9006       | 1006       | SNEHA PATIL      | OS QUIZ - 2                 | 75            
+9007       | 1007       | ARJUN NAIR       | OS QUIZ - 2                 | 50            
+9011       | 1011       | ADITYA GUPTA     | COMPUTER NETWORKS UNIT TEST | 100           
+9009       | 1009       | VIKRAM SINGH     | COMPUTER NETWORKS UNIT TEST | 75            
+9010       | 1010       | MEERA JOSHI      | COMPUTER NETWORKS UNIT TEST | 50            
+9012       | 1012       | POOJA KULKARNI   | COMPUTER NETWORKS UNIT TEST | 0             
+9013       | 1013       | SANDEEP KUMAR    | DSA MIDTERM - I             | 100           
+9014       | 1014       | NISHA RAO        | DSA MIDTERM - I             | 75            
+9015       | 1015       | ARUN PILLAI      | DSA MIDTERM - I             | 75            
+9016       | 1016       | RIYA BANERJEE    | DSA MIDTERM - I             | 50            
+9018       | 1018       | KAVYA SHETTY     | JAVA PROGRAMMING TEST       | 100           
+9019       | 1019       | SIDDHARTH JAIN   | JAVA PROGRAMMING TEST       | 75            
+9017       | 1017       | MANISH VERMA     | JAVA PROGRAMMING TEST       | 50            
+9020       | 1020       | ANJALI CHOUDHARY | JAVA PROGRAMMING TEST       | 25            
+9023       | 1001       | AARAV SHARMA     | DISCRETE MATHS QUIZ - 1     | 100           
+9021       | 1021       | HARSHA VARDHAN   | DISCRETE MATHS QUIZ - 1     | 75            
+9024       | 1005       | KARTHIK REDDY    | DISCRETE MATHS QUIZ - 1     | 75            
+9022       | 1022       | TANVI DESHPANDE  | DISCRETE MATHS QUIZ - 1     | 50            
+(24 rows)
+
+Q9. INNER JOIN (4 tables) - course, exam, attempt and result
+
+SQL:
+SELECT c.Course_Name,
+       COUNT(a.Attempt_ID) AS STUDENTS_APPEARED,
+       SUM(CASE WHEN r.Status = 'PASS' THEN 1 ELSE 0 END) AS PASSED,
+       ROUND(AVG(a.Marks_Obtained), 2) AS AVG_MARKS
+FROM COURSE c
+JOIN EXAM x          ON x.Course_ID   = c.Course_ID
+JOIN EXAM_ATTEMPT a  ON a.Exam_ID     = x.Exam_ID
+JOIN RESULT r        ON r.Attempt_ID  = a.Attempt_ID
+GROUP BY c.Course_Name
+HAVING AVG(a.Marks_Obtained) >= 60
+ORDER BY AVG_MARKS DESC;
+OUTPUT:
+Course_Name                  | STUDENTS_APPEARED | PASSED | AVG_MARKS
+-----------------------------+-------------------+--------+----------
+OPERATING SYSTEMS            | 4                 | 4      | 81.25    
+DISCRETE MATHEMATICS         | 4                 | 4      | 75.0     
+DATA STRUCTURES & ALGORITHMS | 4                 | 4      | 75.0     
+JAVA PROGRAMMING             | 4                 | 3      | 62.5     
+DATABASE MANAGEMENT SYSTEMS  | 4                 | 3      | 62.5     
+(5 rows)
+
+Q10. LEFT JOIN - every student with the number of courses enrolled
+
+SQL:
+SELECT s.Student_ID,
+       s.Student_Name,
+       COUNT(e.Course_ID) AS COURSES_ENROLLED
+FROM STUDENT s
+LEFT JOIN ENROLLMENT e ON e.Student_ID = s.Student_ID
+GROUP BY s.Student_ID, s.Student_Name
+ORDER BY COURSES_ENROLLED DESC, s.Student_ID;
+OUTPUT:
+Student_ID | Student_Name     | COURSES_ENROLLED
+-----------+------------------+-----------------
+1001       | AARAV SHARMA     | 2               
+1003       | ROHAN MEHTA      | 2               
+1004       | ANANYA DAS       | 2               
+1005       | KARTHIK REDDY    | 2               
+1007       | ARJUN NAIR       | 2               
+1008       | DIVYA MENON      | 2               
+1010       | MEERA JOSHI      | 2               
+1012       | POOJA KULKARNI   | 2               
+1014       | NISHA RAO        | 2               
+1015       | ARUN PILLAI      | 2               
+1016       | RIYA BANERJEE    | 2               
+1018       | KAVYA SHETTY     | 2               
+1019       | SIDDHARTH JAIN   | 2               
+1020       | ANJALI CHOUDHARY | 2               
+1022       | TANVI DESHPANDE  | 2               
+1002       | PRIYA IYER       | 1               
+1006       | SNEHA PATIL      | 1               
+1009       | VIKRAM SINGH     | 1               
+1011       | ADITYA GUPTA     | 1               
+1013       | SANDEEP KUMAR    | 1               
+1017       | MANISH VERMA     | 1               
+1021       | HARSHA VARDHAN   | 1               
+1023       | GOUTHAM REDDY    | 0               
+(23 rows)
+
+Q11. LEFT JOIN - students who did NOT appear for exam 201
+
+SQL:
+SELECT s.Student_ID, s.Student_Name
+FROM STUDENT s
+LEFT JOIN EXAM_ATTEMPT a
+       ON a.Student_ID = s.Student_ID
+      AND a.Exam_ID    = 201
+WHERE a.Attempt_ID IS NULL
+ORDER BY s.Student_ID;
+OUTPUT:
+Student_ID | Student_Name    
+-----------+-----------------
+1005       | KARTHIK REDDY   
+1006       | SNEHA PATIL     
+1007       | ARJUN NAIR      
+1008       | DIVYA MENON     
+1009       | VIKRAM SINGH    
+1010       | MEERA JOSHI     
+1011       | ADITYA GUPTA    
+1012       | POOJA KULKARNI  
+1013       | SANDEEP KUMAR   
+1014       | NISHA RAO       
+1015       | ARUN PILLAI     
+1016       | RIYA BANERJEE   
+1017       | MANISH VERMA    
+1018       | KAVYA SHETTY    
+1019       | SIDDHARTH JAIN  
+1020       | ANJALI CHOUDHARY
+1021       | HARSHA VARDHAN  
+1022       | TANVI DESHPANDE 
+1023       | GOUTHAM REDDY   
+(19 rows)
+
+Q12. SCALAR SUBQUERY in WHERE
+
+SQL:
+SELECT Attempt_ID, Student_ID, Exam_ID, Marks_Obtained
+FROM EXAM_ATTEMPT
+WHERE Marks_Obtained > (SELECT AVG(Marks_Obtained) FROM EXAM_ATTEMPT)
+ORDER BY Marks_Obtained DESC;
+OUTPUT:
+Attempt_ID | Student_ID | Exam_ID | Marks_Obtained
+-----------+------------+---------+---------------
+9001       | 1001       | 201     | 100           
+9005       | 1005       | 202     | 100           
+9008       | 1008       | 202     | 100           
+9011       | 1011       | 203     | 100           
+9013       | 1013       | 204     | 100           
+9018       | 1018       | 205     | 100           
+9023       | 1001       | 206     | 100           
+9002       | 1002       | 201     | 75            
+9006       | 1006       | 202     | 75            
+9009       | 1009       | 203     | 75            
+9014       | 1014       | 204     | 75            
+9015       | 1015       | 204     | 75            
+9019       | 1019       | 205     | 75            
+9021       | 1021       | 206     | 75            
+9024       | 1005       | 206     | 75            
+(15 rows)
+
+Q13. SUBQUERY with IN + GROUP BY + HAVING inside it
+
+SQL:
+SELECT Exam_ID, Exam_Title, Exam_Date
+FROM EXAM
+WHERE Exam_ID IN (
+        SELECT Exam_ID
+        FROM EXAM_ATTEMPT
+        GROUP BY Exam_ID
+        HAVING AVG(Marks_Obtained) >= 75)
+ORDER BY Exam_ID;
+OUTPUT:
+Exam_ID | Exam_Title              | Exam_Date 
+--------+-------------------------+-----------
+202     | OS QUIZ - 2             | 2026-08-21
+204     | DSA MIDTERM - I         | 2026-09-04
+206     | DISCRETE MATHS QUIZ - 1 | 2026-09-18
+(3 rows)
+
+Q14. CORRELATED SUBQUERY with NOT EXISTS
+
+SQL:
+SELECT Student_ID, Student_Name, Department
+FROM STUDENT s
+WHERE NOT EXISTS (SELECT 1
+                  FROM EXAM_ATTEMPT a
+                  WHERE a.Student_ID = s.Student_ID);
+OUTPUT:
+Student_ID | Student_Name  | Department
+-----------+---------------+-----------
+1023       | GOUTHAM REDDY | ECE       
+(1 row)
+
+Q15. DERIVED TABLE (subquery in the FROM clause)
+
+SQL:
+SELECT T.EXAM_ID, T.STUDENTS, T.AVG_MARKS
+FROM (SELECT Exam_ID,
+             COUNT(*)                 AS STUDENTS,
+             ROUND(AVG(Marks_Obtained),2) AS AVG_MARKS
+      FROM EXAM_ATTEMPT
+      GROUP BY Exam_ID) AS T
+WHERE T.AVG_MARKS > 60
+ORDER BY T.AVG_MARKS DESC;
+OUTPUT:
+Exam_ID | STUDENTS | AVG_MARKS
+--------+----------+----------
+202     | 4        | 81.25    
+204     | 4        | 75.0     
+206     | 4        | 75.0     
+201     | 4        | 62.5     
+205     | 4        | 62.5     
+(5 rows)
+
+Q16. SUBQUERY with MAX() - the highest scorer(s) of exam 201
+
+SQL:
+SELECT s.Student_Name, a.Marks_Obtained
+FROM EXAM_ATTEMPT a
+JOIN STUDENT s ON s.Student_ID = a.Student_ID
+WHERE a.Exam_ID = 201
+  AND a.Marks_Obtained = (SELECT MAX(Marks_Obtained)
+                          FROM EXAM_ATTEMPT
+                          WHERE Exam_ID = 201);
+OUTPUT:
+Student_Name | Marks_Obtained
+-------------+---------------
+AARAV SHARMA | 100           
+(1 row)
