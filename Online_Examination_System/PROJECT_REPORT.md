@@ -1,7 +1,7 @@
 # ONLINE EXAMINATION SYSTEM
 ## PROJECT REPORT — DATABASE MANAGEMENT SYSTEM
 
-**Class:** II-II CSE-A  
+**Class:** CSE-C
 **Subject:** Database Management Systems  
 **RDBMS Used:** MySQL 8.0 (works on MySQL Workbench / phpMyAdmin / MariaDB)  
 **Project files:** `01_schema.sql`, `02_data.sql`, `03_queries.sql`, `04_views.sql`, `05_triggers.sql`
