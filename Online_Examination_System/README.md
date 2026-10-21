@@ -1,5 +1,5 @@
 # ONLINE EXAMINATION SYSTEM
-### DBMS Mini Project — II-II CSE-A
+### DBMS Mini Project — II-II CSE-C
 
 A complete, ready-to-submit MySQL project: problem statement, ER diagram
 specification, tables with constraints, 20+ records per table, SQL queries,
